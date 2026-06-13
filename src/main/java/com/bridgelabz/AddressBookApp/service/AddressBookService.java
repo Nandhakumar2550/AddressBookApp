@@ -2,27 +2,28 @@ package com.bridgelabz.AddressBookApp.service;
 
 import com.bridgelabz.AddressBookApp.dto.AddressBookDTO;
 import com.bridgelabz.AddressBookApp.model.AddressBookData;
+import com.bridgelabz.AddressBookApp.repository.AddressBookRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AddressBookService implements IAddressBookService {
 
-    private final List<AddressBookData> addressBookList = new ArrayList<>();
+    private final AddressBookRepository repository;
+
+    public AddressBookService(AddressBookRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<AddressBookData> getAddressBookData() {
-        return addressBookList;
+        return repository.findAll();
     }
 
     @Override
     public AddressBookData getAddressBookDataById(int id) {
-        return addressBookList.stream()
-                .filter(contact -> contact.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return repository.findById(id).orElse(null);
     }
 
     @Override
@@ -30,34 +31,12 @@ public class AddressBookService implements IAddressBookService {
 
         AddressBookData data =
                 new AddressBookData(
-                        addressBookList.size() + 1,
+                        0,
                         dto.getName(),
                         dto.getCity(),
                         dto.getState()
                 );
 
-        addressBookList.add(data);
-
-        return data;
-    }
-
-    @Override
-    public AddressBookData updateAddressBookData(int id,
-                                                 AddressBookDTO dto) {
-
-        AddressBookData data = getAddressBookDataById(id);
-
-        if (data != null) {
-            data.setName(dto.getName());
-            data.setCity(dto.getCity());
-            data.setState(dto.getState());
-        }
-
-        return data;
-    }
-
-    @Override
-    public void deleteAddressBookData(int id) {
-        addressBookList.removeIf(contact -> contact.getId() == id);
+        return repository.save(data);
     }
 }

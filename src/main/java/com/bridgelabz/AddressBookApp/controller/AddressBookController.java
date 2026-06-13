@@ -18,31 +18,21 @@ public class AddressBookController {
     }
 
     @GetMapping
-    public List<AddressBookData> getAllContacts() {
+public List<AddressBookData> getAllContacts() {
+
         return addressBookService.getAddressBookData();
-    }
+}
 
-    @GetMapping("/{id}")
-    public AddressBookData getContactById(@PathVariable int id) {
+@GetMapping("/{id}")
+public AddressBookData getContactById(@PathVariable int id) {
+
         return addressBookService.getAddressBookDataById(id);
+}
+
+@PostMapping
+public AddressBookData addContact(
+        @RequestBody AddressBookDTO dto) {
+    return addressBookService.createAddressBookData(dto);
     }
 
-    @PostMapping
-    public AddressBookData addContact(
-            @RequestBody AddressBookDTO dto) {
-        return addressBookService.createAddressBookData(dto);
-    }
-
-    @PutMapping("/{id}")
-    public AddressBookData updateContact(
-            @PathVariable int id,
-            @RequestBody AddressBookDTO dto) {
-        return addressBookService.updateAddressBookData(id, dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteContact(@PathVariable int id) {
-        addressBookService.deleteAddressBookData(id);
-        return "Deleted Contact Id : " + id;
-    }
 }
