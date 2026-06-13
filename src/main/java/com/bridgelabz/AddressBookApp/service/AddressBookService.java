@@ -56,4 +56,8 @@ public class AddressBookService implements IAddressBookService {
 
     return null;
     }
+    @Override
+    public void deleteAddressBookData(int id) {
+        repository.deleteById(id);
+    }
 }

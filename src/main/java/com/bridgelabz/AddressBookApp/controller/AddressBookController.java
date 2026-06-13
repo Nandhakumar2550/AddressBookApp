@@ -42,5 +42,13 @@ public AddressBookData addContact(
         return addressBookService
                 .updateAddressBookData(id, dto);
     }
+    @DeleteMapping("/{id}")
+    public String deleteContact(
+            @PathVariable int id) {
+
+        addressBookService.deleteAddressBookData(id);
+
+        return "Deleted Contact Id : " + id;
+    }
 
 }
