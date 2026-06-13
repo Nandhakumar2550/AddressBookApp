@@ -1,33 +1,22 @@
 package com.bridgelabz.AddressBookApp.controller;
 
-import org.springframework.web.bind.annotation.*;
+import com.bridgelabz.AddressBookApp.service.IAddressBookService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
 
+    private final IAddressBookService addressBookService;
+
+    public AddressBookController(IAddressBookService addressBookService) {
+        this.addressBookService = addressBookService;
+    }
+
     @GetMapping
     public String getAddressBookData() {
-        return "Get Address Book Data";
-    }
-
-    @GetMapping("/{id}")
-    public String getAddressBookDataById(@PathVariable int id) {
-        return "Get Address Book Data By Id : " + id;
-    }
-
-    @PostMapping
-    public String addAddressBookData() {
-        return "Create Address Book Data";
-    }
-
-    @PutMapping("/{id}")
-    public String updateAddressBookData(@PathVariable int id) {
-        return "Update Address Book Data For Id : " + id;
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteAddressBookData(@PathVariable int id) {
-        return "Delete Address Book Data For Id : " + id;
+        return addressBookService.getAddressBookData();
     }
 }
