@@ -34,5 +34,13 @@ public AddressBookData addContact(
         @RequestBody AddressBookDTO dto) {
     return addressBookService.createAddressBookData(dto);
     }
+    @PutMapping("/{id}")
+    public AddressBookData updateContact(
+            @PathVariable int id,
+            @RequestBody AddressBookDTO dto) {
+
+        return addressBookService
+                .updateAddressBookData(id, dto);
+    }
 
 }

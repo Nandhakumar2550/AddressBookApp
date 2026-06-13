@@ -39,4 +39,21 @@ public class AddressBookService implements IAddressBookService {
 
         return repository.save(data);
     }
+    @Override
+  public AddressBookData updateAddressBookData(int id,
+                                             AddressBookDTO dto) {
+
+    AddressBookData data =
+            repository.findById(id).orElse(null);
+
+    if(data != null){
+        data.setName(dto.getName());
+        data.setCity(dto.getCity());
+        data.setState(dto.getState());
+
+        return repository.save(data);
+    }
+
+    return null;
+    }
 }
