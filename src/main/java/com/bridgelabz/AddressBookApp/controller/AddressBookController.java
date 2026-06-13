@@ -4,7 +4,7 @@ import com.bridgelabz.AddressBookApp.dto.AddressBookDTO;
 import com.bridgelabz.AddressBookApp.model.AddressBookData;
 import com.bridgelabz.AddressBookApp.service.IAddressBookService;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,15 +29,17 @@ public AddressBookData getContactById(@PathVariable int id) {
         return addressBookService.getAddressBookDataById(id);
 }
 
-@PostMapping
-public AddressBookData addContact(
-        @RequestBody AddressBookDTO dto) {
-    return addressBookService.createAddressBookData(dto);
+    @PostMapping
+    public AddressBookData addContact(
+            @Valid @RequestBody AddressBookDTO dto) {
+
+        return addressBookService
+                .createAddressBookData(dto);
     }
     @PutMapping("/{id}")
     public AddressBookData updateContact(
             @PathVariable int id,
-            @RequestBody AddressBookDTO dto) {
+            @Valid @RequestBody AddressBookDTO dto) {
 
         return addressBookService
                 .updateAddressBookData(id, dto);

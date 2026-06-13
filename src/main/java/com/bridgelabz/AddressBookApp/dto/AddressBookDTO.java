@@ -1,5 +1,6 @@
 package com.bridgelabz.AddressBookApp.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddressBookDTO {
 
-    private String name;
-    private String city;
-    private String state;
+    @NotBlank(message = "Name cannot be empty")
+private String name;
+
+@NotBlank(message = "City cannot be empty")
+private String city;
+
+@NotBlank(message = "State cannot be empty")
+private String state;
 }
